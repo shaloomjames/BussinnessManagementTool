@@ -37,14 +37,6 @@ const AddExpance = () => {
         });
     };
 
-    useEffect(() => {
-
-        const userToken = Cookies.get("UserAuthToken");
-        if(userToken) {
-            const decodedToken = jwtDecode(userToken); 
-        setAddedBy(decodedToken.userid || '');
-        }
-    }, []);
 
 
     useEffect(() => {

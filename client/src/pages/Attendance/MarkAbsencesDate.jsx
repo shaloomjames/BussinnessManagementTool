@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
@@ -19,22 +19,32 @@ const MarkAbsencesDate = () => {
     }
   };
 
-  React.useEffect(() => {
-    const userToken = Cookies.get("UserAuthToken");
-    if (userToken) {
-      try {
-        const decodedToken = jwtDecode(userToken);
-        const userRole = decodedToken.userrole;
-        if (!(Array.isArray(userRole) && userRole.includes("Admin")) && userRole !== "Admin") {
+  useEffect(() => {
+      const userToken = Cookies.get("UserAuthToken");
+  
+      if (userToken) {
+        try {
+          const decodedToken = jwtDecode(userToken); // Decode the JWT token
+          const userRole = decodedToken.userrole; // Get the user role(s)
+  
+          // Redirect to login if the user is not an Admin
+          if (
+            !(Array.isArray(userRole) && userRole.includes("Admin")) && // Array case
+            userRole !== "Admin" // String case
+          ) {
+            navigate("/login");
+          }
+        } catch (error) {
+          // Handle token decoding failure
+          console.error("Token decoding failed:", error);
           navigate("/login");
         }
-      } catch (error) {
+      } else {
+        // Redirect if no token is found
         navigate("/login");
       }
-    } else {
-      navigate("/login");
-    }
-  }, [navigate]);
+    }, [navigate]);
+  
 
   return (
     <div className="container-fluid">

@@ -85,7 +85,6 @@ const ShowRoles = () => {
   const deleteRole = async (roleid) => {
     Swal.fire({
       title: "Are you sure?",
-      // text: "Are you sure you want to delete this role? This action cannot be undone, and all employees assigned to this role will be removed.",
       text: "Are you sure you want to delete this role? This action will remove all employees assigned to this role.",
       icon: "warning",
       showCancelButton: true,
@@ -195,7 +194,6 @@ const ShowRoles = () => {
                       {currentData.length > 0 ? (
                         currentData.map((role, index) => (
                           <tr key={index}>
-                            {/* <td>{index+1 || "N/A"}</td> */}
                             <td>{startIndex + index + 1}</td> {/* Correct index calculation */}
                             <td>{role.roleName || "N/A"}</td>
                             <td>{role.roleStatus || "N/A"}</td>

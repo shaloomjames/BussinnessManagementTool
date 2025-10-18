@@ -23,19 +23,46 @@ const ShowLeaveType = () => {
 
   const navigate = useNavigate();
 
-  // Authentication check
-  useEffect(() => {
-    const userToken = Cookies.get("UserAuthToken");
-    if (!userToken) navigate("/login");
-    try {
-      const decodedToken = jwtDecode(userToken);
-      if (!decodedToken.userrole?.includes("Admin")) navigate("/login");
-    } catch (error) {
-      console.error("Token decoding failed:", error);
-      navigate("/login");
-    }
-  }, [navigate]);
+  // // Authentication check
+  // useEffect(() => {
+  //   const userToken = Cookies.get("UserAuthToken");
+  //   if (!userToken) navigate("/login");
+  //   try {
+  //     const decodedToken = jwtDecode(userToken);
+  //     if (!decodedToken.userrole?.includes("Admin")) navigate("/login");
+  //   } catch (error) {
+  //     console.error("Token decoding failed:", error);
+  //     navigate("/login");
+  //   }
+  // }, [navigate]);
 
+  useEffect(() => {
+      const userToken = Cookies.get("UserAuthToken");
+  
+      if (userToken) {
+        try {
+          const decodedToken = jwtDecode(userToken); // Decode the JWT token
+          const userRole = decodedToken.userrole; // Get the user role(s)
+  
+          // Redirect to login if the user is not an Admin
+          if (
+            !(Array.isArray(userRole) && userRole.includes("Admin")) && // Array case
+            userRole !== "Admin" // String case
+          ) {
+            navigate("/login");
+          }
+        } catch (error) {
+          // Handle token decoding failure
+          console.error("Token decoding failed:", error);
+          navigate("/login");
+        }
+      } else {
+        // Redirect if no token is found
+        navigate("/login");
+      }
+    }, [navigate]);
+  
+    
   // Fetch leave requests
   useEffect(() => {
     const fetchLeaves = async () => {

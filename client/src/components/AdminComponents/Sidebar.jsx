@@ -28,7 +28,6 @@ const Sidebar = () => {
       <div
         style={{ opacity: "70%" }}
         className="nk-sidebar"
-        // style={{ height: "100%" , backgroundColor:"#1b2b42"}}
         ref={(el) => {
           if (el) el.style.setProperty("height", "100%", "important");
           // if (el) el.style.setProperty('backgroundColor', '#1b2b42', 'important');
@@ -37,7 +36,6 @@ const Sidebar = () => {
         {/* <div className="nk-nav-scroll"> */}
         <ul className="metismenu" id="menu">
           <li className="mt-3">
-            {/* #1d2c42 */}
             <Link
               to="/"
               onMouseEnter={() => setIsHovered(true)} // Set hover state
