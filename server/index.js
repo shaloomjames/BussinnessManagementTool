@@ -8,7 +8,7 @@ const path = require("path");
 
 //cors is a middleware used as a bridge for connection between server and client
 const corOptions = {
-  origin: process.env.FRONTEND_URL || "http://localhost:3000",
+  origin: process.env.FRONTEND_URL || ""https://prime-vertex-softwares.vercel.app"",
   methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
   credentials: true,
 };
